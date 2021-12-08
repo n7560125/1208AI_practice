@@ -106,7 +106,7 @@ public class SteeringBehavior
             {
                 m_AvoidTargets[i].m_eState = Obstacle.eState.OUTSIDE_TEST;
                 continue;
-            } 
+            }
             m_AvoidTargets[i].m_eState = Obstacle.eState.INSIDE_TEST;
             float fProjDist = fDist * fDot;
             float fDotDist = Mathf.Sqrt(fDist * fDist - fProjDist * fProjDist);
@@ -116,8 +116,6 @@ public class SteeringBehavior
             }
 
             return true;
-
-
         }
         return false;
     }
