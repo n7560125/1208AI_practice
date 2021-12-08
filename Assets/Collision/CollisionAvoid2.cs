@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 繼承上一步，增加判斷物件面對方向障礙物添加
+/// </summary>
 public class CollisionAvoid2  {
 
     static public bool CheckObstacleInRange(AIData data)
@@ -26,8 +29,10 @@ public class CollisionAvoid2  {
                 continue;
             }
 
+            //用障礙物距離單位向量與物件方向做內積，判斷是否為正(方向近似)，若為負則劃分outside;
             vec.Normalize();
             fDot = Vector3.Dot(vec, cForward);
+            
             if(fDot < 0)
             {
                 m_AvoidTargets[i].m_eState = Obstacle.eState.OUTSIDE_TEST;
