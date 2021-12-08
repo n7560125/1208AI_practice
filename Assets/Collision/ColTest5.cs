@@ -11,6 +11,9 @@ public class ColTest5 : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+    /// <summary>
+    /// 若目標內沒有障礙物則seek.
+    /// </summary>
 	void Update () {
         m_Data.m_vTarget = m_Target.transform.position;
         if(SteeringBehavior.CollisionAvoid(m_Data) == false)
