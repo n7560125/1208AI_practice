@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 繼承上一步，增加以probe判斷潛在障礙物
+/// </summary>
 public class CollisionAvoid3
 {
 
@@ -35,6 +37,7 @@ public class CollisionAvoid3
                 continue;
             }
             m_AvoidTargets[i].m_eState = Obstacle.eState.INSIDE_TEST;
+            
             float fProjDist = fDist * fDot;
             float fDotDist = Mathf.Sqrt(fDist * fDist - fProjDist * fProjDist);
             if(fDotDist > m_AvoidTargets[i].m_fRadius + data.m_fRadius)

@@ -18,7 +18,9 @@ public class ColTest3 : MonoBehaviour
     {
         CollisionAvoid3.CheckObstacleInRange(m_Data);
     }
-
+    /// <summary>
+    /// Draw gizmos Probe;
+    /// </summary>
     private void OnDrawGizmos()
     {
         if (m_Data != null)
