@@ -37,9 +37,11 @@ public class CollisionAvoid3
                 continue;
             }
             m_AvoidTargets[i].m_eState = Obstacle.eState.INSIDE_TEST;
-            
+            //計算fDist投影至fDot方向之長度
             float fProjDist = fDist * fDot;
+            //計算障礙物至Probe中心線的垂直距離, fProjDist, fDist, fDotDist形成一直角三角形.
             float fDotDist = Mathf.Sqrt(fDist * fDist - fProjDist * fProjDist);
+            //判定是否碰撞(r1+r2<兩圓圓心距離)
             if(fDotDist > m_AvoidTargets[i].m_fRadius + data.m_fRadius)
             {
                 continue;
