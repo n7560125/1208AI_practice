@@ -46,7 +46,7 @@ public class CollisionAvoid4
             {
                 continue;
             }
-
+            //算出距離obj最近的障礙物(威脅最大)
             if(fDist < fMinDist)
             {
                 fMinDist = fDist;
@@ -56,10 +56,8 @@ public class CollisionAvoid4
                 oFinal = m_AvoidTargets[i];
             } 
            // m_AvoidTargets[i].m_eState = Obstacle.eState.COL_TEST;
-
-
         }
-
+        //若obj的probe內目前無障礙物，回傳false.
         if(oFinal == null)
         {
             return false;
@@ -68,8 +66,6 @@ public class CollisionAvoid4
         {
             oFinal.m_eState = Obstacle.eState.COL_TEST;
         }
-
-
         return true;
     }
 }

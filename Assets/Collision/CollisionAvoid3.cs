@@ -41,7 +41,7 @@ public class CollisionAvoid3
             float fProjDist = fDist * fDot;
             //計算障礙物至Probe中心線的垂直距離, fProjDist, fDist, fDotDist形成一直角三角形.
             float fDotDist = Mathf.Sqrt(fDist * fDist - fProjDist * fProjDist);
-            //判定是否碰撞(r1+r2<兩圓圓心距離)
+            //判定是否碰撞(兩圓圓心距離>r1+r2為未碰撞)
             if(fDotDist > m_AvoidTargets[i].m_fRadius + data.m_fRadius)
             {
                 continue;

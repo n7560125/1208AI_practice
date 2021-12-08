@@ -56,6 +56,7 @@ public class SteeringBehavior
             }
         } else
         {
+            //若obj速度接近0(因前面有障礙物而接近停止), 則給予其大的轉向力道轉彎.
             if (data.m_Speed < 0.02f)
             {
                 if(data.m_fTempTurnForce > 0)
@@ -121,18 +122,30 @@ public class SteeringBehavior
         return false;
     }
 
-
+    /// <summary>
+    /// 碰撞迴避
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
     static public bool CollisionAvoid(AIData data)
     {
+        //宣告list並存入所有obstacles的資料.
         List<Obstacle> m_AvoidTargets = Main.m_Instance.GetObstacles();
         Transform ct = data.m_Go.transform;
+        //宣告obj的position向量.
         Vector3 cPos = ct.position;
+        //宣告obj的x軸(前進方向)向量.
         Vector3 cForward = ct.forward;
         data.m_vCurrentVector = cForward;
+        //宣告obj與障礙物兩點圓心向量.
         Vector3 vec;
+        //宣告最高威脅障礙物與obj的probe的垂直距離.
         float fFinalDotDist;
+        //宣告最高威脅障礙物與obj的probe的平行距離.
         float fFinalProjDist;
+        //宣告最高威脅障礙物與obj的圓心距離.
         Vector3 vFinalVec = Vector3.forward;
+        //宣告最高威脅障礙物
         Obstacle oFinal = null;
         float fDist = 0.0f;
         float fDot = 0.0f;
@@ -140,8 +153,10 @@ public class SteeringBehavior
         int iCount = m_AvoidTargets.Count;
 
         float fMinDist = 10000.0f;
+        //對每個於m_AvoidTargets的障礙物資料判斷
         for (int i = 0; i < iCount; i++)
         {
+            //step_1, 先以obj為圓心, 並以probelength做半徑畫圓, 並判斷each障礙物是否於圓內, 若無則劃分outside_test.
             vec = m_AvoidTargets[i].transform.position - cPos;
             vec.y = 0.0f;
             fDist = vec.magnitude;
@@ -150,7 +165,7 @@ public class SteeringBehavior
                 m_AvoidTargets[i].m_eState = Obstacle.eState.OUTSIDE_TEST;
                 continue;
             }
-
+            //step_2, 以each障礙物圓心與obj面對方向做內積, 並以正負判斷該障礙物是否於obj行進方向的前半圓中, 若無則劃分outside_test.
             vec.Normalize();
             fDot = Vector3.Dot(vec, cForward);
             if (fDot < 0)
@@ -161,14 +176,19 @@ public class SteeringBehavior
             {
                 fDot = 1.0f;
             }
+            //step_3, 判斷障礙物是否有碰撞可能，並判斷該障礙物是否為最高威脅障礙物.
+            //通過step_1, step_2判斷者，劃分至inside_test.
             m_AvoidTargets[i].m_eState = Obstacle.eState.INSIDE_TEST;
+            //計算障礙物與obj在probe上的平行距離.
             float fProjDist = fDist * fDot;
+            //計算障礙物與obj的probe的垂直距離.
             float fDotDist = Mathf.Sqrt(fDist * fDist - fProjDist * fProjDist);
+            //判斷obj的probe與障礙物兩點圓心距離是否大於r1+r2, 若是則continue(無碰撞可能).若否則繼續.
             if (fDotDist > m_AvoidTargets[i].m_fRadius + data.m_fRadius)
             {
                 continue;
             }
-
+            //判斷該障礙物是否為obj的最高威脅障礙物, 若是則替代, 若否則繼續.
             if (fDist < fMinDist)
             {
                 fMinDist = fDist;
@@ -180,7 +200,7 @@ public class SteeringBehavior
             }
 
         }
-
+        //for迴圈結束, 判斷是否有最高威脅障礙物
         if(oFinal != null)
         {
             Vector3 vCross = Vector3.Cross(cForward, vFinalVec);
