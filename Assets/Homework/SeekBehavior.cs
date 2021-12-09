@@ -40,6 +40,7 @@ public class SeekBehavior
                 fDotR = -1.0f;
             }
         }
+
         //determine turn force and move force.
         data.m_fTempTurnForce = fDotR * 2.0f;
         data.m_fMoveForce = fDotF * 600.0f;
@@ -49,6 +50,14 @@ public class SeekBehavior
         Vector3 vF = t.forward;
 
         //turn force result.
+        if (data.m_fTempTurnForce > data.m_fMaxRotSpeed)
+        {
+            data.m_fTempTurnForce = data.m_fMaxRotSpeed;
+        }
+        else if (data.m_fTempTurnForce < -data.m_fMaxRotSpeed)
+        {
+            data.m_fTempTurnForce = -data.m_fMaxRotSpeed;
+        }
         vF = vF + vR * data.m_fTempTurnForce*Time.deltaTime;
         t.forward = vF;
 

@@ -24,6 +24,5 @@ public class SeekGameObject : MonoBehaviour
         Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * 3.0f);
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(this.transform.position, this.transform.position + m_seekData.mRB.velocity);
-
     }
 }
