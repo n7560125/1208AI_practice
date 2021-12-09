@@ -13,13 +13,16 @@ public class SeekData
     public GameObject m_GO;
     public Rigidbody mRB;
     [HideInInspector]
+    public float m_fRampedSpeed;
+    public float m_fClippedSpeed;
+    [HideInInspector]
     public Vector3 m_vTarget;
     [HideInInspector]
     public float m_fTempTurnForce;
     [HideInInspector]
     public float m_fMoveForce;
     [HideInInspector]
-    public bool m_bMove;
+    public bool m_bMove = true;
     [HideInInspector]
     public Vector3 m_vCurrentVector;
 

@@ -28,7 +28,7 @@ public class SteeringBehavior
         {
             data.m_fTempTurnForce = -data.m_fMaxRot;
         }
-        //將轉彎後的面對方向更改
+        //先算轉向力量, 將obj面對方向更新.
         vF = vF + vR * data.m_fTempTurnForce;
         vF.Normalize();
         t.forward = vF;
@@ -70,7 +70,7 @@ public class SteeringBehavior
                 
             }
         }
-
+        //計算面對方向移動.
         cPos = cPos + t.forward * data.m_Speed;
         t.position = cPos;
     }

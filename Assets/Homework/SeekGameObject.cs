@@ -15,20 +15,21 @@ public class SeekGameObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //m_seekData.m_vTarget = m_Target.transform.position;
-        //SeekBehavior.Seek(m_seekData);
-        //SeekBehavior.Move(m_seekData);
-        //m_seekData.m_vTarget = m_Target.transform.position;
-        //SeekBehavior.Seek(m_seekData);
-        //SeekBehavior.Move(m_seekData);
-        //SeekBehavior.SeekRigid(m_seekData);
-    }
-    private void FixedUpdate()
-    {
         m_seekData.m_vTarget = m_Target.transform.position;
         //SeekBehavior.Seek(m_seekData);
         //SeekBehavior.Move(m_seekData);
+        //m_seekData.m_vTarget = m_Target.transform.position;
+        //SeekBehavior.Seek(m_seekData);
+        //SeekBehavior.Move(m_seekData);
         SeekBehavior.SeekRigid(m_seekData);
+    }
+    private void FixedUpdate()
+    {
+        //m_seekData.m_vTarget = m_Target.transform.position;
+        //SeekBehavior.Seek(m_seekData);
+        //SeekBehavior.Move(m_seekData);
+
+        //SeekBehavior.SeekRigid(m_seekData);
     }
     private void OnDrawGizmos()
     {
