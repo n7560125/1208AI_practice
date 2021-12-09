@@ -16,25 +16,14 @@ public class SeekGameObject : MonoBehaviour
     void Update()
     {
         m_seekData.m_vTarget = m_Target.transform.position;
-        //SeekBehavior.Seek(m_seekData);
-        //SeekBehavior.Move(m_seekData);
-        //m_seekData.m_vTarget = m_Target.transform.position;
-        //SeekBehavior.Seek(m_seekData);
-        //SeekBehavior.Move(m_seekData);
         SeekBehavior.SeekRigid(m_seekData);
-    }
-    private void FixedUpdate()
-    {
-        //m_seekData.m_vTarget = m_Target.transform.position;
-        //SeekBehavior.Seek(m_seekData);
-        //SeekBehavior.Move(m_seekData);
-
-        //SeekBehavior.SeekRigid(m_seekData);
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(this.transform.position, this.transform.position + this.transform.forward * 3.0f);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(this.transform.position, this.transform.position + m_seekData.mRB.velocity);
 
     }
 }

@@ -7,9 +7,10 @@ using UnityEngine;
 public class SeekData
 {
     public float m_fSpeed;
-    public float m_fMaxSpeed;
+    public float m_fMaxSpeed=20.0f;
     public float m_fRotSpeed;
-    public float m_fMaxRotSpeed;
+    public float m_fMaxRotSpeed=20.0f;
+    public float m_fMinusRadius = 20.0f;
     public GameObject m_GO;
     public Rigidbody mRB;
     [HideInInspector]
@@ -21,9 +22,5 @@ public class SeekData
     public float m_fTempTurnForce;
     [HideInInspector]
     public float m_fMoveForce;
-    [HideInInspector]
-    public bool m_bMove = true;
-    [HideInInspector]
-    public Vector3 m_vCurrentVector;
 
 }
