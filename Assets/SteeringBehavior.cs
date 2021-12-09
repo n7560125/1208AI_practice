@@ -10,16 +10,17 @@ public class SteeringBehavior
     }
     static public void Move(AIData data)
     {
+        //確認obj是否已到終點
         if (data.m_bMove == false)
         {
             return;
         }
+        //宣告變數
         Transform t = data.m_Go.transform;
         Vector3 cPos = data.m_Go.transform.position;
         Vector3 vR = t.right;
         Vector3 vOriF = t.forward;
         Vector3 vF = data.m_vCurrentVector;
-
         if(data.m_fTempTurnForce > data.m_fMaxRot)
         {
             data.m_fTempTurnForce = data.m_fMaxRot;
@@ -27,12 +28,12 @@ public class SteeringBehavior
         {
             data.m_fTempTurnForce = -data.m_fMaxRot;
         }
-        
+        //將轉彎後的面對方向更改
         vF = vF + vR * data.m_fTempTurnForce;
         vF.Normalize();
         t.forward = vF;
         
-
+        //依照time.deltaTime為速度做更新.
         data.m_Speed = data.m_Speed + data.m_fMoveForce * Time.deltaTime;
         if(data.m_Speed < 0.01f)
         {
@@ -41,7 +42,7 @@ public class SteeringBehavior
         {
             data.m_Speed = data.m_fMaxSpeed;
         }
-
+        //判斷碰撞
         if (data.m_bCol == false)
         {
             Debug.Log("CheckCollision");
@@ -293,10 +294,14 @@ public class SteeringBehavior
 
     static public bool Seek(AIData data)
     {
+        //宣告cPos=obj的位置向量, vec=obj至target的向量(desire vec).
         Vector3 cPos = data.m_Go.transform.position;
         Vector3 vec = data.m_vTarget - cPos;
+        //固定y軸.
         vec.y = 0.0f;
+        //宣告fDist = vec長度.
         float fDist = vec.magnitude;
+        //Dead zone.
         if (fDist < data.m_Speed + 0.001f)
         {
             Vector3 vFinal = data.m_vTarget;
@@ -308,11 +313,14 @@ public class SteeringBehavior
             data.m_bMove = false;
             return false;
         }
+        //宣告vf=obj的面對方向的單位向量, vr=obj的右邊方向的單位向量.
         Vector3 vf = data.m_Go.transform.forward;
         Vector3 vr = data.m_Go.transform.right;
         data.m_vCurrentVector = vf;
         vec.Normalize();
+        //宣告fDotF=vf與vec內積.
         float fDotF = Vector3.Dot(vf, vec);
+        //debug.
         if(fDotF > 0.96f)
         {
             fDotF = 1.0f;
@@ -339,6 +347,7 @@ public class SteeringBehavior
                 }
                
             } 
+        //若距離短則轉彎&前進force增加.
             if(fDist < 3.0f)
             {
                 fDotR *= (fDist / 3.0f + 1.0f);
