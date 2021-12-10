@@ -12,7 +12,7 @@ public enum eFSMTransition
     Go_Dead,
 }
 
-
+//宣告狀態id.
 public enum eFSMStateID
 {
     NullStateID = 0,
@@ -22,19 +22,28 @@ public enum eFSMStateID
     AttackStateID,
     DeadStateID,
 }
-
-public class FSMState {
+/// <summary>
+/// 狀態基底class
+/// </summary>
+public class FSMState 
+{
     public eFSMStateID m_StateID;
     public Dictionary<eFSMTransition, FSMState> m_Map;
     public float m_fCurrentTime;
-
+    /// <summary>
+    /// 初始化
+    /// </summary>
     public FSMState()
     {
         m_StateID = eFSMStateID.NullStateID;
         m_fCurrentTime = 0.0f;
         m_Map = new Dictionary<eFSMTransition, FSMState>();
     }
-
+    /// <summary>
+    /// 增加狀態切換機制, 參數為要增加的狀態切換id與目標狀態資料.
+    /// </summary>
+    /// <param name="trans"></param>
+    /// <param name="toState"></param>
     public void AddTransition(eFSMTransition trans, FSMState toState)
     {
         if(m_Map.ContainsKey(trans))

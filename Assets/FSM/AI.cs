@@ -85,6 +85,5 @@ public class AI : MonoBehaviour {
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.transform.position, m_Data.m_fAttackRange);
-    }
-        
+    } 
 }
