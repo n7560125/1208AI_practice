@@ -65,6 +65,7 @@ public class SeekBehavior
         if (fDist < 2.0f)
         {
             data.mRB.velocity = Vector3.zero;
+            data.mRB.angularVelocity = Vector3.zero;
             return;
         }
         //arrival behavior, use velocity minus radius
